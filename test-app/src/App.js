@@ -1,6 +1,7 @@
 // import React from 'react';
 import React, { Component } from 'react';
 import Profile from "./Profile";
+import AddUser from "./AddUser";
 
 // container components with state made by classes
 // UI components without state made by functions
@@ -28,11 +29,29 @@ class App extends Component {
       { name: "Sid", age: 30, id: 3 }
     ]
   }
+  addUser = (newUser) => {
+    // console.log(newUser)
+    newUser.id = Math.random();
+    let users = [...this.state.users, newUser];
+    this.setState({
+      users: users
+    })
+  }
+  deleteUser = (id) => {
+    // console.log(id)
+    let users = this.state.users.filter(user => {
+      return user.id !== id
+    })
+    this.setState({
+      users: users
+    })
+  }
   render() {
     return (
       <div className="App">
         <h1>My first React app</h1>
-        <Profile users={this.state.users} />
+        <Profile deleteUser={this.deleteUser} users={this.state.users} />
+        <AddUser addUser={this.addUser} />
       </div>
     );
   }
