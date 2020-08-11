@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 class Home extends Component {
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const { posts } = this.props;
     const postList = posts.length ? (
       posts.map(post => {
@@ -35,11 +35,11 @@ class Home extends Component {
   }
 }
 
-const mapStartToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     posts: state.posts
   }
 }
 
 // get state from store and pass as props
-export default connect(mapStartToProps)(Home);
+export default connect(mapStateToProps)(Home);

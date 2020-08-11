@@ -1,1 +1,1 @@
-This a repo for exercising react
+This a repo for exploring react / redux
