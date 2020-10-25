@@ -254,7 +254,7 @@ A central data store for all app data, so that no data is passing around compone
   4. `Reducer` updates the central state
   5. `Redux` passes the changes to all components that subscribes to this changes (i.e. using this data as props)
 
-Example in a whole
+Example in a nutshell
 
 ```js
 const { createStore } = Redux;
@@ -289,11 +289,3 @@ const action = {
 
 store.dispatch(action);
 ```
-
-Example in project:
-
-- [rootReducer.js]()
-- [index.js]()
-- [Home.js]()
-- [Post.js]()
-- [postAction]()
