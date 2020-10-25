@@ -289,3 +289,81 @@ const action = {
 
 store.dispatch(action);
 ```
+
+## React Context API
+
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+Context is designed to share data that can be considered “global” for a tree of React components, such as the current authenticated user, theme, or preferred language.
+
+### Example Steps
+
+1. Set up `ThemeContext` and `ThemeContextProvider`
+2. Wrap components with provider
+   ```js
+   function App() {
+     return (
+       <div className='App'>
+         <ThemeContextProvider>
+           <Navbar />
+           <BookList />
+         </ThemeContextProvider>
+       </div>
+     );
+   }
+   ```
+3. Import `Context` in children component (as follows)
+
+   **Method 1** - Using `React.createContext`
+
+   - Can only be use with class component
+   - Cannot achieve using multiple context in one component (another one would need to `Context.Consumer`)
+
+   ```js
+   class Navbar extends Component {
+     static contextType = ThemeContext;
+     render() {
+       const { isLightTheme, light, dark } = this.context;
+       const theme = isLightTheme ? light : dark;
+       return (
+         <nav style={{ background: theme.ui, color: theme.syntax }}>
+           <h1>Context API</h1>
+           <ul>
+             <li>Home</li>
+             <li>About</li>
+             <li>Contact</li>
+           </ul>
+         </nav>
+       );
+     }
+   }
+   ```
+
+   **Method 2** - Using `Context.Consumer`
+
+   - Can use on both class and functional components
+   - Able to consume multiple context in one component (e.g. wrapping outside of `ThemeContext.Consumer`)
+
+   ```js
+   class Navbar extends Component {
+     render() {
+       return (
+         <ThemeContext.Consumer>
+           {(context) => {
+             const { isLightTheme, light, dark } = context;
+             const theme = isLightTheme ? light : dark;
+             return (
+               <nav style={{ background: theme.ui, color: theme.syntax }}>
+                 <h1>Context API</h1>
+                 <ul>
+                   <li>Home</li>
+                   <li>About</li>
+                   <li>Contact</li>
+                 </ul>
+               </nav>
+             );
+           }}
+         </ThemeContext.Consumer>
+       );
+     }
+   }
+   ```
